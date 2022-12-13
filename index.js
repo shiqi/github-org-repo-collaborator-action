@@ -125,6 +125,8 @@ async function repoNames(collabsArray) {
           endCursor = null
         }
         await collabRole(repo, collabsArray)
+        // avoid hitting the rate limit
+        await new Promise(r => setTimeout(r, 5000));
         console.log(repo.name)
       }
     } while (hasNextPage)
