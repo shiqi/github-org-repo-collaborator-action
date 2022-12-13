@@ -49,11 +49,17 @@ if (appId && privateKey && installationId) {
     const mergeArray = []
     const memberArray = []
     await orgID()
+    console.log('got orgID')
     await repoNames(collabsArray)
+    console.log('got collabsArray')
     await ssoCheck(emailArray)
+    console.log('got emailArray')
     await membersWithRole(memberArray)
+    console.log('got memberArray')
     await mergeArrays(collabsArray, emailArray, mergeArray, memberArray)
+    console.log('mergeArrays completed')
     await report(mergeArray)
+    console.log('report generated')
     if (jsonExport === 'TRUE') {
       await json(mergeArray)
     }
@@ -466,7 +472,9 @@ async function report(mergeArray) {
       if (data && data.sha) {
         opts.sha = data.sha
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(error.message)
+    }
 
     await octokit.rest.repos.createOrUpdateFileContents(opts)
   } catch (error) {
